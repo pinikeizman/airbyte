@@ -7,6 +7,8 @@ import { FormattedMessage, useIntl } from "react-intl";
 import * as yup from "yup";
 
 import { Label, LabeledSwitch } from "components";
+import DocsIcon from "components/icons/DocsIcon";
+import PlayIcon from "components/icons/PlayIcon";
 import { Row, Cell } from "components/SimpleTableComponents";
 import { Button } from "components/ui/Button";
 import { Input } from "components/ui/Input";
@@ -14,9 +16,8 @@ import { Text } from "components/ui/Text";
 import { Tooltip } from "components/ui/Tooltip";
 
 import useWorkspace, { WebhookPayload } from "hooks/services/useWorkspace";
+import { links } from "utils/links";
 
-import PlayIcon from "../../../../../components/icons/PlayIcon";
-import DocsIcon from "../../../../../views/layout/SideBar/components/DocsIcon";
 import { Content, SettingsCard } from "../../SettingsComponents";
 import styles from "./WebHookForm.module.scss";
 
@@ -83,12 +84,7 @@ export const WebHookForm: React.FC<WebHookFormProps> = ({ webhook }) => {
                 </div>
                 <ul>
                   <li>
-                    <a
-                      className={styles.webhookGuideLink}
-                      target="_blank"
-                      href="https://docs.airbyte.com/operator-guides/configuring-sync-notifications/"
-                      rel="noreferrer"
-                    >
+                    <a className={styles.webhookGuideLink} target="_blank" href={links.webhookGuide} rel="noreferrer">
                       <DocsIcon />
                       <Text className={styles.text} size="lg">
                         <FormattedMessage id="settings.notificationGuide.link.configuration" />
@@ -99,7 +95,7 @@ export const WebHookForm: React.FC<WebHookFormProps> = ({ webhook }) => {
                     <a
                       className={styles.webhookGuideLink}
                       target="_blank"
-                      href="https://www.youtube.com/watch?v=NjYm8F-KiFc"
+                      href={links.webhookVideoGuide}
                       rel="noreferrer"
                     >
                       <PlayIcon />
@@ -114,11 +110,11 @@ export const WebHookForm: React.FC<WebHookFormProps> = ({ webhook }) => {
                   alt={formatMessage({
                     id: "settings.notificationGuide.button",
                   })}
-                  src="/images/octavia/webhook-guide.png"
+                  src="/images/octavia/help.png"
                 />
               </div>
-              <Row>
-                <Cell>
+              <Row className={styles.webhookUrlRow}>
+                <Cell className={styles.webhookUrlLabelCell}>
                   <Label
                     error={!!errors.webhook}
                     message={
@@ -128,7 +124,7 @@ export const WebHookForm: React.FC<WebHookFormProps> = ({ webhook }) => {
                     <FormattedMessage id="settings.webhookTitle" />
                   </Label>
                 </Cell>
-                <Cell className={styles.webhookGuideButtonSection}>
+                <Cell className={styles.webhookGuideButtonCell}>
                   {!webhookViewGuide ? (
                     <>
                       <Button
@@ -144,14 +140,14 @@ export const WebHookForm: React.FC<WebHookFormProps> = ({ webhook }) => {
                         alt={formatMessage({
                           id: "settings.notificationGuide.button",
                         })}
-                        src="/images/octavia/webhook-guide.png"
+                        src="/images/octavia/help.png"
                       />
                     </>
                   ) : null}
                 </Cell>
               </Row>
               <Row className={styles.webhookRow}>
-                <Cell>
+                <Cell className={styles.webhookUrlInputCell}>
                   <Field name="webhook">
                     {({ field, meta }: FieldProps<string>) => (
                       <Input
@@ -164,12 +160,13 @@ export const WebHookForm: React.FC<WebHookFormProps> = ({ webhook }) => {
                     )}
                   </Field>
                 </Cell>
-                <Cell>
+                <Cell className={styles.testButtonCell}>
                   <Tooltip
                     className={styles.tooltip}
                     placement="top"
                     control={
                       <Button
+                        className={styles.testButton}
                         type="button"
                         variant="secondary"
                         isLoading={formAction.test}

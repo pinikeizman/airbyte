@@ -26,6 +26,8 @@ export const links = {
   demoLink: "https://demo.airbyte.io",
   contactSales: "https://airbyte.com/talk-to-sales",
   webpageLink: "https://airbyte.com",
+  webhookVideoGuide: "https://www.youtube.com/watch?v=NjYm8F-KiFc",
+  webhookGuide: "https://docs.airbyte.com/operator-guides/configuring-sync-notifications/",
 } as const;
 
 export type OutboundLinks = typeof links;
