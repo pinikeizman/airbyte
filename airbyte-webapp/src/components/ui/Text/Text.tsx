@@ -4,8 +4,9 @@ import React from "react";
 import headingStyles from "./heading.module.scss";
 import textStyles from "./text.module.scss";
 
-type TextSize = "sm" | "md" | "lg";
-type HeadingSize = TextSize | "xl";
+type BaseSize = "sm" | "md" | "lg";
+type TextSize = "xs" | BaseSize;
+type HeadingSize = BaseSize | "xl";
 type TextElementType = "p" | "span" | "div";
 type HeadingElementType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
@@ -27,6 +28,7 @@ interface HeadingProps extends BaseProps {
 
 const getTextClassNames = ({ size, centered, bold }: Required<Pick<TextProps, "size" | "centered" | "bold">>) => {
   const sizes: Record<TextSize, string> = {
+    xs: textStyles.xs,
     sm: textStyles.sm,
     md: textStyles.md,
     lg: textStyles.lg,
