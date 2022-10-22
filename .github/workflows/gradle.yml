@@ -236,7 +236,7 @@ jobs:
         run: git --no-pager diff && test -z "$(git --no-pager diff)"
 
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+        uses: cpdeethree/publish-unit-test-result-action/composite@v0.0.13
         id: connectors-test-results
         if: always()
         with:
@@ -538,7 +538,7 @@ jobs:
           python-version: "3.9"
 
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+        uses: cpdeethree/publish-unit-test-result-action/composite@v0.0.13
         id: platform-results-1
         if: always()
         with:
@@ -548,7 +548,7 @@ jobs:
           check_name: "Platform Test Results (Main)"
       
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+        uses: cpdeethree/publish-unit-test-result-action/composite@v0.0.13
         id: platform-results-2
         if: always()
         with:
@@ -556,21 +556,7 @@ jobs:
           comment_mode: off
           json_file: platform_results_2.json
           check_name: "Platform Test Results (Subprojects)"
-      
-      - name: Install PyGithub
-        if: always()
-        run: |
-          python -m pip install --upgrade pip
-          pip install PyGithub
-          
-      - name: Upload Test Results To Check Run
-        if: always()
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python tools/bin/upload_test_results_to_gh_api.py --json platform_results_1.json
-          python tools/bin/upload_test_results_to_gh_api.py --json platform_results_2.json
-      
+
       - name: Generate Test Report
         uses: dorny/test-reporter@v1
         if: always()    # run this step even if previous step failed
@@ -726,7 +712,7 @@ jobs:
           python-version: "3.9"
 
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+        uses: cpdeethree/publish-unit-test-result-action/composite@v0.0.13
         if: always()
         with:
           junit_files: "/actions-runner/_work/airbyte/airbyte/*/build/test-results/*/*.xml\n/actions-runner/_work/airbyte/airbyte/*/*/build/test-results/*/*.xml"
@@ -905,7 +891,7 @@ jobs:
 #          CI=true IS_MINIKUBE=true ./tools/bin/acceptance_test_kube_helm.sh
 #
 #      - name: Publish Test Results
-#        uses: EnricoMi/publish-unit-test-result-action@v2
+#        uses: cpdeethree/publish-unit-test-result-action/composite@v0.0.13
 #        id: connectors-test-results
 #        if: always()
 #        with:
