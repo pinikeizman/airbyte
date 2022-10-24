@@ -102,6 +102,8 @@ fi
 # Git makes more sense from /
 cd ..
 pwd
+## XXX removeme
+git config --list
 
 # We should be here but we are playing with fire
 git fetch
