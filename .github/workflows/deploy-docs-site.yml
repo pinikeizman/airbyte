@@ -29,9 +29,11 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: docusaurus
 
-      - name: Switch GH from HTTPS to SSH
+      - name: Setup local Git client
         run: |
           git remote set-url origin git@github.com:airbytehq/airbyte.git
+          git config --global user.email "octavia-squidington-iii@users.noreply.github.com"
+          git config --global user.name "octavia-squidington-iii"
 
       - name: Run Docusaurus
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
