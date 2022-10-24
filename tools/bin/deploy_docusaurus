@@ -43,6 +43,9 @@ pwd
 ## XXX removeme
 git config --list
 echo
+#ssh -vT git@github.com
+git remote -v
+echo
 echo
 
 # Yarn check (which is commonly used to check for program existence)
@@ -96,6 +99,7 @@ if test "$(tty)" == "not a tty"; then
   # write a prod website to airbytehq/airbyte gh_pages branch
   # NOT ACTUALLY WORKING
   GIT_USER="octavia-squidington-iii" yarn run deploy
+  rm -rf $HOME/.netrc
 else
   yarn run deploy
 fi
@@ -108,6 +112,9 @@ cd ..
 pwd
 ## XXX removeme
 git config --list
+echo
+#ssh -vT git@github.com
+git remote -v
 echo
 echo
 
