@@ -145,6 +145,8 @@ git add CNAME
 # Skip pre-commit hooks fire_elmo.jpg
 PRE_COMMIT_ALLOW_NO_CONFIG=1 git commit --message "Adds CNAME to deploy for $revision"
 
+git push
+
 # non functional. for debugging
 git rev-parse --abbrev-ref HEAD
 
