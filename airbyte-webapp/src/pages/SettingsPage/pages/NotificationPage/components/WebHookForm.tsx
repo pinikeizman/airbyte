@@ -44,18 +44,46 @@ const webhookValidationSchema = yup.object().shape({
 export const WebHookForm: React.FC<WebHookFormProps> = ({ webhook }) => {
   const [webhookViewGuide, setWebhookViewGuide] = useState(false);
   const [formAction, setFormAction] = useState<FormActionType>({ test: false, save: false });
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const { updateWebhook, testWebhook } = useWorkspace();
   const { formatMessage } = useIntl();
+
+  let timeoutID: ReturnType<typeof setTimeout> | null = null;
 
   const webhookChange = async (action: WebhookAction, data: WebhookPayload) => {
     setFormAction((value) => ({ ...value, [action]: true }));
     if (action === WebhookAction.Test) {
-      await testWebhook(data);
+      await testWebhookAction(data);
     }
     if (action === WebhookAction.Save) {
       await updateWebhook(data);
     }
     setFormAction((value) => ({ ...value, [action]: false }));
+  };
+
+  const testWebhookAction = async (data: WebhookPayload) => {
+    try {
+      const response = await testWebhook(data);
+      switch (response.status) {
+        case "failed":
+          setErrorMessage(true);
+          break;
+        case "succeeded":
+          console.log("200, succeeded!");
+          break;
+      }
+    } catch (e) {
+      setErrorMessage(true);
+    }
+
+    if (timeoutID) {
+      clearTimeout(timeoutID);
+    }
+
+    timeoutID = setTimeout(() => {
+      setErrorMessage(false);
+      timeoutID = null;
+    }, 2000);
   };
 
   return (
@@ -159,6 +187,11 @@ export const WebHookForm: React.FC<WebHookFormProps> = ({ webhook }) => {
                       />
                     )}
                   </Field>
+                  {errorMessage ? (
+                    <Text className={styles.webhookErrorMessage} size="sm">
+                      <FormattedMessage id="form.someError" />
+                    </Text>
+                  ) : null}
                 </Cell>
                 <Cell className={styles.testButtonCell}>
                   <Tooltip

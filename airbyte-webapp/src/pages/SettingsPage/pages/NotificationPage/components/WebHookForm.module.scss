@@ -106,8 +106,16 @@
   margin-bottom: variables.$spacing-xl;
 
   .webhookUrlInputCell {
+    position: relative;
     flex: auto;
     width: 100%;
+
+    .webhookErrorMessage {
+      position: absolute;
+      bottom: -15px;
+      right: 10px;
+      color: colors.$red-600;
+    }
   }
 
   .testButtonCell {
@@ -135,6 +143,7 @@
 
 .tooltip {
   transform: translate(0, -#{variables.$spacing-sm});
+  white-space: nowrap;
 }
 
 .action {
