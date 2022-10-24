@@ -40,6 +40,10 @@ echo -e "$blue_text""the repo airbytehq/airbytehq.github.io\n\n""$default_text"
 echo -e "$blue_text""Current path:""$default_text"
 pwd
 
+## XXX removeme
+git config --list
+echo
+echo
 
 # Yarn check (which is commonly used to check for program existence)
 # -s/--silent doesn't exist in cloud's Ubuntu
@@ -104,6 +108,8 @@ cd ..
 pwd
 ## XXX removeme
 git config --list
+echo
+echo
 
 # We should be here but we are playing with fire
 git fetch
