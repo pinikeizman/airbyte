@@ -29,6 +29,10 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: docusaurus
 
+      - name: Switch GH from HTTPS to SSH
+        run: |
+          git remote set-url origin git@github.com:airbytehq/airbyte.git
+
       - name: Run Docusaurus
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: ./tools/bin/deploy_docusaurus
