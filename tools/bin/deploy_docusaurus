@@ -41,7 +41,7 @@ echo -e "$blue_text""Current path:""$default_text"
 pwd
 
 
-# Yarn check (which is commonly used to check for program existance)
+# Yarn check (which is commonly used to check for program existence)
 # -s/--silent doesn't exist in cloud's Ubuntu
 if ! which brew > /dev/null; then
   echo -e "$red_text""homebrew not found HALP!!\n\n""$default_text"
@@ -85,8 +85,8 @@ if test "$(tty)" == "not a tty"; then
   set +o xtrace
   echo -e "$blue_text""github email not found adding Octavia's""$default_text"
   set -o xtrace
-  git config user.email="octavia-squidington-iii@users.noreply.github.com"
-  git config user.name="octavia-squidington-iii"
+  git config --global user.email "octavia-squidington-iii@users.noreply.github.com"
+  git config --global user.name "octavia-squidington-iii"
   echo "machine github.com login octavia-squidington-iii password $GITHUB_TOKEN" > $HOME/.netrc
   # context https://v1.docusaurus.io/docs/en/publishing#using-github-pages
   # write a prod website to airbytehq/airbyte gh_pages branch
@@ -132,15 +132,21 @@ PRE_COMMIT_ALLOW_NO_CONFIG=1 git commit --message "Adds CNAME to deploy for $rev
 # non functional. for debugging
 git rev-parse --abbrev-ref HEAD
 
-if test "$(tty)" == "not a tty"; then
-  # note that this is NOT airbyte repo
-  git push --force https://octavia-squidington-iii:$GITHUB_TOKEN@github.com/airbytehq/airbytehq.github.io.git
-else
-  git push --force git@github.com:airbytehq/airbytehq.github.io.git
-fi
 
-# Let's leave the tire fire of force pushes
-git checkout -
+###
+### XXX: we dont want to mess with airbytehq.github.io ATM, thus
+###      the code below is commented out.
+###
+
+#if test "$(tty)" == "not a tty"; then
+#  # note that this is NOT airbyte repo
+#  git push --force https://octavia-squidington-iii:$GITHUB_TOKEN@github.com/airbytehq/airbytehq.github.io.git
+#else
+#  git push --force git@github.com:airbytehq/airbytehq.github.io.git
+#fi
+#
+## Let's leave the tire fire of force pushes
+#git checkout -
 
 
 # Want to push from your own computer? uncomment this line and comment out the push above
