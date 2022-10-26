@@ -1,0 +1,9 @@
+# Folder containing config files with potintially sensitive data
+secrets
+# Local environemnt
+.venv
+venv
+# IntelliJ config
+.idea
+# Building
+*.egg-info/
